@@ -13,12 +13,12 @@ const CustomForm = () => {
   const [item, setItem] = useState(initItem);
 
   const [info, setInfo] = useState(dataFromLocalStorage);
-  // console.log(info);
+  console.log(info);
 
   const Submitting = (e) => {
     e.preventDefault();
     if (!item.title || !item.amount || !item.detail || !item.category) {
-      alert("Enter Something");
+      // alert("Enter Something");
     } else {
       const _info = [...info, item];
       setInfo(_info);
@@ -55,7 +55,9 @@ const CustomForm = () => {
   },${current.getFullYear()}`;
 
   const handle = (e) => {
-    const { name, value } = e.target;
+    const value = e.target.value;
+    const name = e.target.name;
+    // const { name, value } = e.target;
     const previousItems = item;
     const newItems = { ...previousItems, [name]: value, date: date };
     setItem(newItems);
@@ -65,7 +67,7 @@ const CustomForm = () => {
     const updatedata = info.filter((cur, index) => {
       return id !== index;
     });
-    alert("id", id);
+    // alert("id", id);
 
     setInfo(updatedata);
     localStorage.setItem("items", JSON.stringify(updatedata));
@@ -126,6 +128,7 @@ const CustomForm = () => {
                     <option value="trasportation">Transportation</option>
                     <option value="food">Food</option>
                     <option value="chothes">Clothes</option>
+                    <option value="share">Share</option>
                   </select>
                 </Form.Group>
               </Col>
@@ -165,8 +168,8 @@ const CustomForm = () => {
                         amount={information.amount}
                         date={information.date}
                         detail={information.detail}
-                        deleteCard={deleteCard}
-                        index={index}
+                        category={information.category}
+                        onDeleteBtnClicked={() => deleteCard(index)}
                       />
                     </Col>
                   ))}
